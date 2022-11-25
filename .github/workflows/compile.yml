@@ -33,22 +33,21 @@ jobs:
       - name: Create folders
         run: mkdir mp4v2 && mkdir export
         
-      - name: Checkout mp4v2
-        uses: actions/checkout@v2
-        with:
-          repository: enzo1982/mp4v2
-          path: './mp4v2'
+      - name: Fetch the mp4v2 Release
+        run: RELEASE_VERSION=`cat release-versions/mp4v2-latest.txt` && echo $RELEASE_VERSION
+        
+#         https://github.com/enzo1982/mp4v2/releases/download/v2.1.1/mp4v2-2.1.1.tar.bz2
           
-      - name: List mp4v2
-        run: ls ./mp4v2 && ls ./
+#       - name: List mp4v2
+#         run: ls ./mp4v2 && ls ./
 
-      - name: Run the projects configure
-        run: ./mp4v2/configure --prefix=../export
+#       - name: Run the projects configure
+#         run: ./mp4v2/configure --prefix=../export
         
-      - name: Build mp4v2
-        run: make -j4 && make install && make distclean
+#       - name: Build mp4v2
+#         run: make -j4 && make install && make distclean
         
-      - uses: actions/upload-artifact@v3
-        with:
-          name: binary-${{ matrix.os }}
-          path: ./export/
+#       - uses: actions/upload-artifact@v3
+#         with:
+#           name: binary-${{ matrix.os }}
+#           path: ./export/
