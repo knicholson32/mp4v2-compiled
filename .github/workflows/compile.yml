@@ -37,8 +37,6 @@ jobs:
         run: RELEASE_VERSION=`cat release-versions/mp4v2-latest.txt` && echo $RELEASE_VERSION \
              && wget https://github.com/enzo1982/mp4v2/releases/download/$RELEASE_VERSION/mp4v2-${RELEASE_VERSION/v}.tar.bz2 \
              && tar -xvjf mp4v2-${RELEASE_VERSION/v}.tar.bz2 -C ./mp4v2
-        
-#         https://github.com/enzo1982/mp4v2/releases/download/v2.1.1/mp4v2-2.1.1.tar.bz2
           
       - name: List mp4v2
         run: ls ./mp4v2 && ls ./
