@@ -1,0 +1,47 @@
+name: Compile MP4V2
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'release-versions/*'
+      
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }} with ${{ matrix.compiler }}.
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        compiler: [ g++-10 ]
+        include:
+          - os: ubuntu-latest
+            compiler: g++-10
+            target: Linux
+
+          - os: macos-latest
+            compiler: g++-10
+            target: Macos
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Checkout mp4v2
+        uses: actions/checkout@v2
+        with:
+          repository: enzo1982/mp4v2
+          path: '.'
+
+      - name: Run the projects configure
+        run: ./configure --prefix=/export
+        
+      - name: Build mp4v2
+        run: make -j4 && make install && make distclean
+        
+      - uses: actions/upload-artifact@v3
+        with:
+          name: binary-${{ matrix.os }}
+          path: /export/
