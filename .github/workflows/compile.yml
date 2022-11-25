@@ -38,12 +38,15 @@ jobs:
         with:
           repository: enzo1982/mp4v2
           path: './mp4v2'
+          
+      - name: List mp4v2
+        run: ls ./mp4v2 && ls ./
 
       - name: Run the projects configure
-        run: cd ./mp4v2 && ./configure --prefix=../export
+        run: ./mp4v2/configure --prefix=../export
         
       - name: Build mp4v2
-        run: cd ./mp4v2 && make -j4 && make install && make distclean
+        run: make -j4 && make install && make distclean
         
       - uses: actions/upload-artifact@v3
         with:
