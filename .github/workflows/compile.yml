@@ -29,6 +29,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        
+      - name: Create folders
+        run: mkdir mp4v2
+        
       - name: Checkout mp4v2
         uses: actions/checkout@v2
         with:
