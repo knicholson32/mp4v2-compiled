@@ -31,21 +31,21 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Create folders
-        run: mkdir mp4v2
+        run: mkdir mp4v2 && mkdir export
         
       - name: Checkout mp4v2
         uses: actions/checkout@v2
         with:
           repository: enzo1982/mp4v2
-          path: '/mp4v2'
+          path: './mp4v2'
 
       - name: Run the projects configure
-        run: cd /mp4v2 && ./configure --prefix=/export
+        run: cd ./mp4v2 && ./configure --prefix=../export
         
       - name: Build mp4v2
-        run: cd /mp4v2 && make -j4 && make install && make distclean
+        run: cd ./mp4v2 && make -j4 && make install && make distclean
         
       - uses: actions/upload-artifact@v3
         with:
           name: binary-${{ matrix.os }}
-          path: /export/
+          path: ./export/
