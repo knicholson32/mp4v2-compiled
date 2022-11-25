@@ -38,12 +38,9 @@ jobs:
           
       - name: List mp4v2
         run: ls ./mp4v2 && ls ./
-
-      - name: Run the projects configure
-        run: ./mp4v2/configure --prefix=../export
         
       - name: Build mp4v2
-        run: make -j4 && make install && make distclean
+        run:  RELEASE_VERSION=`cat release-versions/mp4v2-latest.txt` && cd ./mp4v2/mp4v2-${RELEASE_VERSION/v} && ./configure --prefix=../../export && make -j4 && cd make install && make distclean
         
       - uses: actions/upload-artifact@v3
         with:
